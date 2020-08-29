@@ -1,0 +1,9 @@
+create_swap: false
+
+apache:
+  port: 80
+  servername: example.com
+  documentroot:
+    path: /web/public
+    owner: root
+    group: root

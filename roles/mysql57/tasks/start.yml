@@ -1,0 +1,6 @@
+#-- MySQL5.7を起動 + 自動起動on --#
+- name: Start MySQL
+  service:
+    name: mysqld
+    state: started
+    enabled: yes

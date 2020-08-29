@@ -1,0 +1,4 @@
+- include_tasks: roles/mysql57/tasks/yumrepos.yml
+- include_tasks: roles/mysql57/tasks/install.yml
+- include_tasks: roles/mysql57/tasks/start.yml
+- include_tasks: roles/mysql57/tasks/rootpassword.yml

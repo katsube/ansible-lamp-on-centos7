@@ -1,0 +1,31 @@
+#-- 全パッケージ更新 --#
+- name: Update all yum packages
+  yum:
+    name: "*"
+    state: latest
+
+#-- yum-cronインストール --#
+- name: Install yum-cron
+  yum:
+    name: yum-cron
+    state: present
+
+#-- yum-cron設定 --#
+- name: Edit yum-cron.conf
+  lineinfile:
+    dest: '/etc/yum/yum-cron.conf'
+    state: present
+    backrefs: yes
+    backup: yes
+    regexp: "{{item.regexp}}"
+    line: "{{item.line}}"
+  with_items:
+    - { regexp: '^update_cmd = default', line: 'update_cmd = security' }
+    - { regexp: '^apply_updates = no', line: 'apply_updates = yes' }
+
+#-- yum-cron起動 + 自動起動on--#
+- name: Start yum-cron
+  service:
+    name: yum-cron
+    state: started
+    enabled: yes

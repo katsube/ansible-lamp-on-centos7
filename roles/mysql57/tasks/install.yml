@@ -1,0 +1,32 @@
+#-- MySQL5.7を入れる --#
+- name: Install MySQL 5.7
+  yum:
+    name:
+      - mysql-community-client
+      - mysql-community-common
+      - mysql-community-devel
+      - mysql-community-libs
+      - mysql-community-server
+      - MySQL-python    # Ansibleの操作で必要
+    state: present
+
+#-- 設定ファイルをコピー --#
+- name: Copy MySQL Config file
+  template:
+    src: "{{item.source}}"
+    dest: "{{item.dest}}"
+    owner: root
+    group: root
+  with_items:
+    - { source: 'templates/my.cnf.j2', dest: '/etc/my.cnf' }
+
+#-- 空のログファイルを作成 --#
+- name: Create logfile
+  file:
+    path: "{{ item }}"
+    state: touch
+    owner: mysql
+    group: mysql
+  with_items:
+    - "{{ mysql.slowquery.path }}"
+

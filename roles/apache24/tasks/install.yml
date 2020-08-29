@@ -1,0 +1,22 @@
+#-----------------------------------------------------
+# Apache
+#-----------------------------------------------------
+#-- Apache追加 --#
+- name: Install Apache 2.4
+  yum:
+    name:
+      - httpd
+      - httpd-devel
+      - httpd-tools
+    state: present
+
+#-- 設定ファイルをコピー --#
+- name: Copy Apache Config file
+  copy:
+    src: "{{ item.source }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+  with_items:
+    - { source: "files/header.conf", dest: "/etc/httpd/conf.d/header.conf" }
+

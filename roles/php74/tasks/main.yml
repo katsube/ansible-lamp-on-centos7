@@ -1,0 +1,4 @@
+- include_tasks: roles/php74/tasks/yumrepos.yml
+- include_tasks: roles/php74/tasks/install.yml
+- include_tasks: roles/php74/tasks/phpini.yml
+- include_tasks: roles/php74/tasks/composer.yml

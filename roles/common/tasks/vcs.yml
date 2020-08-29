@@ -1,0 +1,5 @@
+#-- Git --#
+- name: Install Git
+  yum:
+    name: git
+    state: present

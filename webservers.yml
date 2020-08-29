@@ -1,0 +1,9 @@
+- hosts: webservers
+  become: true
+  tasks:
+    - include_role:
+        name: common
+    - include_role:
+        name: php74
+    - include_role:
+        name: apache24

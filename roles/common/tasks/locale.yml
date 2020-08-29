@@ -1,0 +1,8 @@
+#-- Locale --#
+- name: Set locale
+  command: localectl set-locale LANG=ja_JP.UTF-8
+
+#-- TimeZone --#
+- name: Set timezone to Asia/Tokyo
+  timezone:
+    name: "Asia/Tokyo"

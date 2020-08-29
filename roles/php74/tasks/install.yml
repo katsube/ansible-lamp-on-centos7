@@ -1,0 +1,22 @@
+#-- PHP 7.4 --#
+- name: Install PHP7.4
+  yum:
+    name:
+      - php74
+      - php74-php
+      - php74-php-cli
+      - php74-php-common
+      - php74-php-devel
+      - php74-php-opcache
+      - php74-php-mbstring
+      - php74-php-mysqlnd
+      - php74-php-pdo
+      - php74-php-gd
+    state: present
+
+#-- ln --#
+- name: Create symlink php
+  file:
+    src: "/usr/bin/php74"
+    dest: "/usr/bin/php"
+    state: link

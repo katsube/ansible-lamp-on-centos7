@@ -1,0 +1,25 @@
+#-- 設定ファイルをコピー --#
+- name: Create Apache Config file (vhost)
+  template:
+    src: "{{ item.source }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+  with_items:
+    - { source: "templates/vhost.conf.j2", dest: "/etc/httpd/conf.d/vhost.conf" }
+
+#-- ドキュメントルートの存在チェック --#
+- name: Check document root directory
+  stat:
+    path: "{{apache.documentroot.path}}"
+  register: docroot
+
+#-- ドキュメントルートが無ければ作成する --#
+- name: Create document root directory
+  file:
+    path: "{{apache.documentroot.path}}"
+    state: directory
+    owner: "{{apache.documentroot.owner}}"
+    group: "{{apache.documentroot.group}}"
+  when:
+    - docroot.stat.exists == false

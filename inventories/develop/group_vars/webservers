@@ -1,0 +1,9 @@
+create_swap: false
+
+apache:
+  port: 80
+  servername: drupal.nicecode.net
+  documentroot:
+    path: /web/public
+    owner: root
+    group: root

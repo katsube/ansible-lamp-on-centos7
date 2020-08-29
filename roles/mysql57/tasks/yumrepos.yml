@@ -1,0 +1,5 @@
+- name: Install MySQL5.7 Repository
+  yum:
+    name:
+      - http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
+    state: present

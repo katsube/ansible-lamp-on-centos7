@@ -1,0 +1,6 @@
+#-- Apacheを起動 + 自動起動on--#
+- name: Start Apache
+  service:
+    name: httpd
+    state: started
+    enabled: yes

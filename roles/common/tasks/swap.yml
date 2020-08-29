@@ -1,0 +1,15 @@
+#-- Swapを作成 --#
+- name: Create swap 1/7 - mkdir
+  command: mkdir /var/swap/
+- name: Create swap 2/7 - dd
+  command: dd if=/dev/zero of=/var/swap/swap0 bs=1M count=1024
+- name: Create swap 3/7 - od
+  command: od -h /var/swap/swap0
+- name: Create swap 4/7 - chmod
+  command: chmod 600 /var/swap/swap0
+- name: Create swap 5/7 - mkswap
+  command: mkswap /var/swap/swap0
+- name: Create swap 6/7 - swapon
+  command: swapon /var/swap/swap0
+- name: Create swap 7/7 - add /etc/fstab
+  shell: echo '/var/swap/swap0 swap swap defaults 0 0' >> /etc/fstab

@@ -1,0 +1,7 @@
+create_swap: false
+
+mysql:
+  root_host: localhost
+  root_pw: "6MZ_dO_eQyOqEGNx"
+  slowquery:
+    path: /var/log/mysqld_slowquery.log

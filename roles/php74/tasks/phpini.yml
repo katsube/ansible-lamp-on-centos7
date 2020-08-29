@@ -1,0 +1,24 @@
+#-- php.ini編集 --#
+- name: Edit /etc/opt/remi/php74/php.ini
+  lineinfile:
+    dest: "/etc/opt/remi/php74/php.ini"
+    regexp: "{{item.regexp}}"
+    line: "{{item.line}}"
+  with_items:
+    # display_errors
+    # - { regexp: '^display_errors = Off', line: 'display_errors = On' }
+    # timezone
+    - { regexp: '^;date.timezone =', line: 'date.timezone = Asia/Tokyo' }
+    # mbstring
+    - { regexp: '^;mbstring.language = Japanese',         line: 'mbstring.language = Japanese' }
+    - { regexp: '^;mbstring.internal_encoding =',         line: 'mbstring.internal_encoding = UTF-8' }
+    - { regexp: '^;mbstring.http_input =',                line: 'mbstring.http_input = auto' }
+    - { regexp: '^;mbstring.http_output =',               line: 'mbstring.http_output = UTF-8' }
+    - { regexp: '^;mbstring.encoding_translation = Off',  line: 'mbstring.encoding_translation = On' }
+    - { regexp: '^;mbstring.detect_order = auto',         line: 'mbstring.detect_order = auto' }
+    - { regexp: '^;mbstring.substitute_character = none', line: 'mbstring.substitute_character = none' }
+    - { regexp: '^;mbstring.func_overload = 0',           line: 'mbstring.func_overload = 0' }
+    # memory
+    - { regexp: '^memory_limit = 128M', line: 'memory_limit = 64M' }
+    # 表示
+    - { regexp: '^expose_php = On', line: 'expose_php = Off' }
