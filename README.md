@@ -88,13 +88,17 @@ apache:
 MySQLの設定項目をYAML形式で入力します。
 
 ```yaml
-create_swap: false
-
 mysql:
-  root_host: localhost
-  root_pw: "6AtKCey8sDehPQxnkshyjhThx3HqhPEz"
-  slowquery:
-    path: /var/log/mysqld_slowquery.log
+  account:
+    root:
+      host: localhost
+      password: "6MZ_dO_eQyOqEGNx"
+  config:
+    port: 3306
+    maxconn: 64
+    charset: utf8mb4
+
+  # 以下略
 ```
 
 ## Licence
