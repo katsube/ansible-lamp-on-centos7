@@ -17,16 +17,25 @@
     dest: "{{item.dest}}"
     owner: root
     group: root
+    lstrip_blocks: yes
+    trim_blocks: yes
   with_items:
     - { source: 'templates/my.cnf.j2', dest: '/etc/my.cnf' }
 
-#-- 空のログファイルを作成 --#
-- name: Create logfile
+#-- 空のログファイルを作成 (slowquery) --#
+- name: Create logfile - slowquery
   file:
-    path: "{{ item }}"
+    path: "{{ mysql.log.slowquery.path }}"
     state: touch
     owner: mysql
     group: mysql
-  with_items:
-    - "{{ mysql.slowquery.path }}"
+  when: mysql.log.slowquery.enable == true
 
+#-- 空のログファイルを作成 (general) --#
+- name: Create logfile - general
+  file:
+    path: "{{ mysql.log.general.path }}"
+    state: touch
+    owner: mysql
+    group: mysql
+  when: mysql.log.general.enable == true

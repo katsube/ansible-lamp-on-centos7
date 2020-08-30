@@ -1,7 +1,22 @@
 create_swap: false
 
 mysql:
-  root_host: localhost
-  root_pw: "6AtKCey8sDehPQxnkshyjhThx3HqhPEz"
-  slowquery:
-    path: /var/log/mysqld_slowquery.log
+  account:
+    root:
+      host: localhost
+      password: "6MZ_dO_eQyOqEGNx"
+  config:
+    port: 3306
+    maxconn: 300
+    charset: utf8mb4
+  log:
+    error:
+      path: /var/log/mysqld.log
+    slowquery:
+      enable: false
+      path: /var/log/mysqld_slowquery.log
+      querytime: 1
+      noindex: true
+    general:
+      enable: false
+      path: /var/log/mysqld_general.log

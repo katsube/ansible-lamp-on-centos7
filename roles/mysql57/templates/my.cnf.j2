@@ -3,21 +3,35 @@ datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock
 symbolic-links=0
 
-character-set-server = utf8mb4
+port={{mysql.config.port}}
+max_connections = {{mysql.config.maxconn}}
+character-set-server = {{mysql.config.charset}}
 
-max_connections = 300
-
+{% if mysql.log.slowquery.enable %}
 slow_query_log = 1
-long_query_time = 1
-log_queries_not_using_indexes = ON
-slow_query_log_file = {{mysql.slowquery.path}}
+slow_query_log_file = {{mysql.log.slowquery.path}}
+long_query_time = {{mysql.log.slowquery.querytime}}
+  {% if mysql.log.slowquery.noindex -%}
+    log_queries_not_using_indexes = ON
+  {% endif %}
+{% endif %}
 
+{% if mysql.log.general.enable %}
+general_log = 1
+general_log_file = {{mysql.log.general.path}}
+{% endif %}
+
+{# rootのパスワード設定後にコメントアウト #}
 skip-grant-tables
 skip-networking
+{# ここまで #}
+
+{# v5.7.11未満では設定を有効に #}
+{# default_password_lifetime=0 #}
 
 [mysqld_safe]
-log-error=/var/log/mysqld.log
+log-error={{mysql.log.error.path}}
 pid-file=/var/run/mysqld/mysqld.pid
 
 [mysql]
-default-character-set = utf8mb4
+default-character-set = {{mysql.config.charset}}
