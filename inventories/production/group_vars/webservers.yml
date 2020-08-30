@@ -1,14 +1,5 @@
 create_swap: false
 
-aws:
-  cli:
-    enable: true
-    region: ap-northeast-1    # 東京
-    output: json
-    credential:
-      aws_access_key_id: ""
-      aws_secret_access_key: ""
-
 apache:
   port: 80
   servername: example.com
@@ -28,3 +19,12 @@ memcached:
   php:
     install: true
     module: php74-php-pecl-memcached
+
+aws:
+  cli:
+    enable: true
+    region: ap-northeast-1    # 東京
+    output: json
+    credential:
+      aws_access_key_id: ""
+      aws_secret_access_key: ""

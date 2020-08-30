@@ -17,7 +17,7 @@ $ ansible-playbook -i inventories/production site.yml
     * 日本時間化
     * スワップの作成 (デフォルトはOFF)
     * yum-cron
-    * git
+    * git, zip, unzip
 1. Apache 2.4
     * HTTPヘッダーの基本設定
     * VirtualHost
