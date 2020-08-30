@@ -2,7 +2,7 @@ create_swap: false
 
 apache:
   port: 80
-  servername: drupal.nicecode.net
+  servername: dev.example.com
   documentroot:
     path: /web/public
     owner: root
