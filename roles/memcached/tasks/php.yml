@@ -1,0 +1,6 @@
+#-- Install --#
+- name: Install memcached PHP module
+  yum:
+    name:
+      - "{{memcached.php.module}}"
+    state: present

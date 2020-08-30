@@ -1,0 +1,4 @@
+- include_tasks: roles/memcached/tasks/install.yml
+- include_tasks: roles/memcached/tasks/php.yml
+  when: memcached.php.install == true
+- include_tasks: roles/memcached/tasks/start.yml

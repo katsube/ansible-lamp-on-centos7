@@ -7,3 +7,15 @@ apache:
     path: /web/public
     owner: root
     group: root
+
+memcached:
+  install: false
+  config:
+    port: 11211
+    user: memcached
+    maxconn: 1024
+    size: 64
+    option: "-U 0 -l 127.0.0.1"
+  php:
+    install: true
+    module: php74-php-pecl-memcached

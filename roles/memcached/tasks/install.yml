@@ -1,0 +1,18 @@
+#-- Install --#
+- name: Install memcached server
+  yum:
+    name:
+      - memcached        # repos: base/7/x86_64
+      - memcached-devel  # repos: base/7/x86_64
+    state: present
+
+#-- 設定ファイルをコピー --#
+- name: Copy memcached config file
+  template:
+    src: "{{item.source}}"
+    dest: "{{item.dest}}"
+    owner: root
+    group: root
+    mode: "644"
+  with_items:
+    - { source: "templates/sysconfig.j2", dest: "/etc/sysconfig/memcached" }

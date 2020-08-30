@@ -23,12 +23,19 @@ $ ansible-playbook -i inventories/production site.yml
     * VirtualHost
     * 自動起動
 1. PHP 7.4
-    * php.iniの基本設定
+    * `php.ini`の基本設定
     * composer
 1. MySQL 5.7
     * my.cnfの基本設定
     * rootのパスワード変更
     * 自動起動
+1. memcached
+    * `/etc/sysconfig/memcached`の基本設定
+    * PHPモジュールのインストール
+    * 自動起動
+
+### 備考
+* memcachedはデフォルトではインストールされません。`inventories/(環境)/group_vars/webservers`で設定を変更できます。
 
 ## 設定
 実行前に以下の設定を行ってください。

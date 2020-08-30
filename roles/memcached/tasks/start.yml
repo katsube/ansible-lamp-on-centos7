@@ -1,0 +1,6 @@
+#-- memcachedを起動 + 自動起動on --#
+- name: Start memcached server
+  service:
+    name: memcached
+    state: started
+    enabled: yes

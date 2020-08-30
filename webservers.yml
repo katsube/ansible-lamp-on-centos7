@@ -6,4 +6,7 @@
     - include_role:
         name: php74
     - include_role:
+        name: memcached
+      when: memcached.install == true
+    - include_role:
         name: apache24
