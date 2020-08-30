@@ -10,3 +10,6 @@
       when: memcached.install == true
     - include_role:
         name: apache24
+    - include_role:
+        name: awscli2
+      when: aws.cli.enable == true

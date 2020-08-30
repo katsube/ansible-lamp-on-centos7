@@ -1,0 +1,28 @@
+# Memo.
+# https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/install-cliv2-linux.html
+
+#-- aws cliをダウンロード --#
+- name: Download awscli v2
+  get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /tmp/awscliv2.zip
+
+#-- aws cliを解凍 --#
+- name: Unarchive awscliv2.zip
+  unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp/
+    remote_src: yes
+
+#-- aws cliをインストール --#
+- name: Install awscli v2
+  command: /tmp/aws/install
+
+#-- 残骸を掃除する --#
+- name: Clean awscli
+  file:
+    path: "{{item}}"
+    state: absent
+  with_items:
+    - "/tmp/awscliv2.zip"
+    - "/tmp/aws/"

@@ -4,4 +4,4 @@
   when: create_swap == true
 - include_tasks: roles/common/tasks/yum.yml
 - include_tasks: roles/common/tasks/vcs.yml
-
+- include_tasks: roles/common/tasks/util.yml

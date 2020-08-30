@@ -1,0 +1,6 @@
+- name: Install Utility command
+  yum:
+    name:
+      - zip
+      - unzip
+    state: present

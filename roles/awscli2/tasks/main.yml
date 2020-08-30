@@ -1,0 +1,2 @@
+- include_tasks: roles/awscli2/tasks/install.yml
+- include_tasks: roles/awscli2/tasks/config.yml

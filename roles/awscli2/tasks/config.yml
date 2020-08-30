@@ -1,0 +1,18 @@
+#-- ~/.awsディレクトリ作成 --#
+- name: Create awscli Config directory
+  file:
+    path: ~/.aws
+    state: directory
+    mode: "775"
+  become: false
+
+#-- 設定ファイルを作成 --#
+- name: Create awscli Config file
+  template:
+    src: "{{ item.source }}"
+    dest: "{{ item.dest }}"
+    mode: "600"
+  become: false
+  with_items:
+    - { source: "templates/config.j2", dest: "~/.aws/config" }
+    - { source: "templates/credentials.j2", dest: "~/.aws/credentials" }
