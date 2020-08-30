@@ -33,9 +33,13 @@ $ ansible-playbook -i inventories/production site.yml
     * `/etc/sysconfig/memcached`の基本設定
     * PHPモジュールのインストール
     * 自動起動
+1. awscli v2
+    * awsコマンド
+    * ~/.aws/credentials, ~/.aws/configの作成
 
 ### 備考
 * memcachedはデフォルトではインストールされません。`inventories/(環境)/group_vars/webservers`で設定を変更できます。
+* awscliはデフォルトではインストールされません。`inventories/(環境)/group_vars/webservers`で設定を変更できます。
 
 ## 設定
 実行前に以下の設定を行ってください。
