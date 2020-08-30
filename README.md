@@ -1,7 +1,11 @@
 # Setting up the LAMP on CentOS7 with Ansible
 CentOS7.xにコマンド一発でLAMP環境を構築します。
+
 ```shellsession
-$ ansible-playbook -i inventories/develop site.yml
+$ ansible-playbook site.yml
+```
+```shellsession
+$ ansible-playbook -i inventories/production site.yml
 ```
 
 * AWSの[Amazon Lightsail](https://aws.amazon.com/jp/lightsail/)上のCentOS7.8で動作確認をしています。
@@ -73,7 +77,7 @@ apache:
     group: root
 ```
 
-#### inventories/(環境)/group_vars/webserver
+#### inventories/(環境)/group_vars/dbserver
 MySQLの設定項目をYAML形式で入力します。
 
 ```yaml
