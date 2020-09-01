@@ -5,6 +5,10 @@ mysql:
     root:
       host: localhost
       password: "6MZ_dO_eQyOqEGNx"
+    users:
+      - {name: "user1", host: "localhost", priv: "rpgdb.*:ALL", password: "cH1oaD-INRxAu.i0"}
+  schema:
+    - rpgdb
   config:
     port: 3306
     maxconn: 300
