@@ -13,6 +13,7 @@
       - php74-php-pdo
       - php74-php-gd
       - php74-php-pecl-zip
+      - php74-php-xml
     state: present
 
 #-- ln --#
