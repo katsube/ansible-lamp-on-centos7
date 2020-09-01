@@ -1,0 +1,9 @@
+- name: Create MySQL Schema
+  mysql_db:
+    name:
+      - "{{item}}"
+    state: present
+    login_user: root
+    login_password: "{{mysql.account.root.password}}"
+  with_items:
+    - "{{mysql.schema}}"

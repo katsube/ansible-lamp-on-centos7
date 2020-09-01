@@ -4,3 +4,5 @@
 - include_tasks: roles/mysql57/tasks/rootpassword.yml
   vars:
     tmppass: "RDmgKf.srXHLqDcy"
+- include_tasks: roles/mysql57/tasks/create_schema.yml
+- include_tasks: roles/mysql57/tasks/create_users.yml

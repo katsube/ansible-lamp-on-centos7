@@ -1,0 +1,10 @@
+- name: Create MySQL users
+  mysql_user:
+    name: "{{item.name}}"
+    host: "{{item.host}}"
+    password: "{{item.password}}"
+    priv: "{{item.priv}}"
+    state: present
+    login_user: root
+    login_password: "{{mysql.account.root.password}}"
+  with_items: "{{mysql.account.users}}"
