@@ -1,5 +1,17 @@
-#-- Git --#
-- name: Install Git
+#-- 現在のGit1.xを削除する --#
+- name: Remove Git 1.x
   yum:
     name: git
+    state: absent
+
+#-- IUS リポジトリを入れる --#
+- name: Install IUS yum repository
+  yum:
+    name: https://repo.ius.io/ius-release-el7.rpm
+    state: present
+
+#-- Git 2.2 を入れる --#
+- name: Install Git 2.2
+  yum:
+    name: git224
     state: present
