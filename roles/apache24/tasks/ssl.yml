@@ -1,0 +1,83 @@
+#-- SSL、Let's Encrypt用のモジュールを追加 --#
+- name: Install mod_ssl, certbot
+  yum:
+    name:
+      - mod_ssl
+      - certbot
+      - python2-certbot-apache
+    state: present
+
+#--------------------------------------------#
+# Let's Encrypt
+#--------------------------------------------#
+#-- certbot実行前後の処理を定義 --#
+- name: Modify certbot config
+  replace:
+    dest: /etc/sysconfig/certbot
+    regexp: "{{item.regexp}}"
+    replace: "{{item.line}}"
+  with_items:
+    # 更新作業前に1度実行
+    - {regexp: '^PRE_HOOK=""',   line: 'PRE_HOOK="--pre-hook ''systemctl stop httpd''"'}
+    # 更新作業後に1度実行
+    - {regexp: '^POST_HOOK=""',  line: 'POST_HOOK="--post-hook ''systemctl graceful httpd''"'}
+
+#-- Private keyの存在チェック --#
+- name: Check privkey.pem exists
+  stat:
+    path: "/etc/letsencrypt/live/{{apache.servername}}/privkey.pem"
+  register: privkey
+
+#-- Private keyが無ければ新規に証明書を取得 --#
+- name: Get certs
+  shell: |
+    certbot certonly -m {{ apache.ssl.letsencrypt.email }} --agree-tos --non-interactive $* --webroot -w {{ apache.documentroot.path }} -d {{ apache.servername }}
+  when: not privkey.stat.exists
+
+#-- certbotをcronに仕込む --#
+- name: Set cron to renew certs
+  cron:
+    name: Set cron to renew certs
+    minute: "{{apache.ssl.letsencrypt.cron.minute}}"
+    hour: "{{apache.ssl.letsencrypt.cron.hour}}"
+    day: "{{apache.ssl.letsencrypt.cron.day}}"
+    month: "{{apache.ssl.letsencrypt.cron.month}}"
+    weekday: "{{apache.ssl.letsencrypt.cron.weekday}}"
+    job: |
+      /bin/bash -lc "certbot certonly --force-renew --webroot -w {{ apache.documentroot.path }} -d {{ apache.servername }} --post-hook 'systemctl reload httpd' > /dev/null 2>&1"
+    state: present
+
+
+#--------------------------------------------#
+# Apache
+#--------------------------------------------#
+#-- 既存のSSLの設定を退避 --#
+- name: Backup ssl.conf
+  copy:
+    src: /etc/httpd/conf.d/ssl.conf
+    dest: /etc/httpd/conf.d/ssl.conf.original
+    remote_src: yes
+
+#-- 設定ファイルをコピー --#
+- name: Copy ssl.conf
+  template:
+    src: templates/ssl.conf.j2
+    dest: /etc/httpd/conf.d/ssl.conf
+    owner: root
+    group: root
+
+#-- SSL用ドキュメントルートの存在チェック --#
+- name: Check SSL document root directory
+  stat:
+    path: "{{apache.ssl.documentroot.path}}"
+  register: docrootssl
+
+#-- SSL用ドキュメントルートが無ければ作成する --#
+- name: Create SSL document root directory
+  file:
+    path: "{{apache.ssl.documentroot.path}}"
+    state: directory
+    owner: "{{apache.ssl.documentroot.owner}}"
+    group: "{{apache.ssl.documentroot.group}}"
+  when:
+    - docrootssl.stat.exists == false
