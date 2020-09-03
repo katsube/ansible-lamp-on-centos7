@@ -21,6 +21,10 @@ $ ansible-playbook -i inventories/production site.yml
 1. Apache 2.4
     * HTTPヘッダーの基本設定
     * VirtualHost
+    * SSL
+        * Let's EncryptでSSL証明書の作成
+        * cronで自動更新
+        * HTTP → HTTPSへ自動リダイレクト
     * 自動起動
 1. PHP 7.4
     * `php.ini`の基本設定
