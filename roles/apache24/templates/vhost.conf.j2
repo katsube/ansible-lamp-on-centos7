@@ -8,4 +8,11 @@
         AllowOverride All
         Require all granted
     </Directory>
+
+{% if apache.redirectssl %}
+    RewriteEngine on
+    RewriteCond %{HTTPS} off
+    RewriteCond %{REQUEST_URI} !(^/\.well-known/)
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+{% endif %}
 </VirtualHost>

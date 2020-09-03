@@ -1,0 +1,5 @@
+#-- Apacheを再起動--#
+- name: ReStart Apache
+  service:
+    name: httpd
+    state: reloaded

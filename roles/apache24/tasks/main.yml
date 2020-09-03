@@ -1,3 +1,5 @@
 - include_tasks: roles/apache24/tasks/install.yml
 - include_tasks: roles/apache24/tasks/vhost.yml
 - include_tasks: roles/apache24/tasks/start.yml
+- include_tasks: roles/apache24/tasks/ssl.yml
+- include_tasks: roles/apache24/tasks/reload.yml

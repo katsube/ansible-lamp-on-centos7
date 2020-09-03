@@ -7,6 +7,23 @@ apache:
     path: /web/public
     owner: root
     group: root
+  ssl:
+    enable: true
+    port: 443
+    documentroot:
+      path: /web/public
+      owner: root
+      group: root
+    letsencrypt:
+      email: katsubemakito@example.com
+      cron:
+        minute: "30"
+        hour: "5"
+        day: "*"
+        month: "*"
+        weekday: "*"
+  redirectssl:
+    enable: true
 
 memcached:
   install: false
